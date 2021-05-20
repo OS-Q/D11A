@@ -1,15 +1,7 @@
-/*
- * Example of FreeRTOS task utilities
- * https://www.freertos.org/a00021.html
- */
 
 // Include Arduino FreeRTOS library
 #include <Arduino_FreeRTOS.h>
 
-/**
- * Task handlers
- * https://www.freertos.org/a00019.html#xTaskHandle
- */
 TaskHandle_t taskBlinkHandle;
 
 TaskHandle_t taskDeletedHandle;
@@ -23,29 +15,29 @@ void setup() {
    */
   xTaskCreate(TaskBlink, // Task function
               "Blink", // Task name
-              128, // Stack size 
-              NULL, 
+              128, // Stack size
+              NULL,
               0, // Priority
               &taskBlinkHandle); // Task handler
 
   xTaskCreate(TaskSerial,
               "Serial",
               128,
-              NULL, 
+              NULL,
               2,
               NULL);
 
   xTaskCreate(TaskDeleted,
               "Deleted",
               64,
-              NULL, 
+              NULL,
               1,
               &taskDeletedHandle);
 
   xTaskCreate(TaskBlocked,
               "Blocked",
               64,
-              NULL, 
+              NULL,
               1,
               &taskBlockedHandle);
 
@@ -77,11 +69,11 @@ void TaskSerial(void *pvParameters)
     Serial.print("- TASK ");
     Serial.print(pcTaskGetName(NULL)); // Get task name without handler https://www.freertos.org/a00021.html#pcTaskGetName
     Serial.print(", High Watermark: ");
-    Serial.print(uxTaskGetStackHighWaterMark(NULL)); // https://www.freertos.org/uxTaskGetStackHighWaterMark.html 
+    Serial.print(uxTaskGetStackHighWaterMark(NULL)); // https://www.freertos.org/uxTaskGetStackHighWaterMark.html
 
 
     TaskHandle_t taskSerialHandle = xTaskGetCurrentTaskHandle(); // Get current task handle. https://www.freertos.org/a00021.html#xTaskGetCurrentTaskHandle
-    
+
     Serial.println();
 
     Serial.print("- TASK ");
@@ -101,9 +93,9 @@ void TaskSerial(void *pvParameters)
     Serial.print(", High Watermark: ");
     Serial.print(uxTaskGetStackHighWaterMark(taskBlockedHandle));
     Serial.println();
-    
+
     Serial.println();
-    
+
     vTaskDelay( 5000 / portTICK_PERIOD_MS );
   }
 }
@@ -115,7 +107,7 @@ void TaskBlocked(void *pvParameters) {
   (void) pvParameters;
   for (;;)
   {
-    vTaskDelay( 900000 / portTICK_PERIOD_MS );  
+    vTaskDelay( 900000 / portTICK_PERIOD_MS );
   }
 }
 
@@ -128,9 +120,9 @@ void TaskDeleted(void *pvParameters) {
   vTaskDelete(NULL);
 }
 
-/* 
- * Blink task. 
- * See Blink_AnalogRead example. 
+/*
+ * Blink task.
+ * See Blink_AnalogRead example.
  */
 void TaskBlink(void *pvParameters)
 {

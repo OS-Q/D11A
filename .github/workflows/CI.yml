@@ -3,11 +3,14 @@ name: CI
 on: [push, pull_request]
 
 jobs:
-  arduino_ci:
+  arduino:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
+        with:
+          submodules: "recursive"
+          fetch-depth: 1
       - uses: Arduino-CI/action@master
 
   build:
@@ -17,6 +20,16 @@ jobs:
         examples:
           - "AnalogRead_DigitalRead"
           - "ArrayQueue"
+          - "Assert"
+          - "Blink_AnalogRead"
+          - "IntegerQueue"
+          - "Interrupts"
+          - "Mutex"
+          - "Notifications"
+          - "StructArray"
+          - "StructQueue"
+          - "TaskStatus"
+          - "TaskUtilities"
         package: ["pio","qio"]
 
     runs-on: ubuntu-latest
