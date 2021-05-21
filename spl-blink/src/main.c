@@ -22,9 +22,12 @@
  * does not have that GPIO peripheral) */
 #define LED_GPIO_PORT  (GPIOB)
 #define LED_GPIO_PINS  (GPIO_PIN_5)
+#elif defined(STM8S003)
+#define LED_GPIO_PORT  (GPIOB)
+#define LED_GPIO_PINS  (GPIO_PIN_5)
 #else
-#define LED_GPIO_PORT  (GPIOC)
-#define LED_GPIO_PINS  (GPIO_PIN_3 | GPIO_PIN_2)
+#define LED_GPIO_PORT  (GPIOG)
+#define LED_GPIO_PINS  (GPIO_PIN_3 | GPIO_PIN_2 | GPIO_PIN_1 | GPIO_PIN_0)
 #endif
 
 /* Private macro -------------------------------------------------------------*/
