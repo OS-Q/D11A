@@ -1,55 +1,30 @@
-/**
-  ******************************************************************************
-  * @file    GPIO_Toggle\main.c
-  * @author  MCD Application Team
-  * @version V2.0.4
-  * @date    26-April-2018
-  * @brief   This file contains the main function for GPIO Toggle example.
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; COPYRIGHT 2014 STMicroelectronics</center></h2>
-  *
-  * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
-  * You may not use this file except in compliance with the License.
-  * You may obtain a copy of the License at:
-  *
-  *        http://www.st.com/software_license_agreement_liberty_v2
-  *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
-  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  * See the License for the specific language governing permissions and
-  * limitations under the License.
-  *
-  ******************************************************************************
-  */ 
-
+/*******************************************************************************
+****版本：V1.0.0
+****平台：stm8s
+****日期：2021-05-20
+****作者：Qitas
+****版权：OS-Q
+*******************************************************************************/
 /* Includes ------------------------------------------------------------------*/
 #include "stm8s.h"
 #include "stm8s_it.h"    /* SDCC patch: required by SDCC for interrupts */
-
-/**
-  * @addtogroup GPIO_Toggle
-  * @{
-  */
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /* Evalboard I/Os configuration */
 
 /* automatically use built-in LED for known nucleo boards */
-#if defined(STM8S_NUCLEO_208RB) || defined(STM8S_NUCLEO_207K8) 
+#if defined(STM8S_NUCLEO_208RB) || defined(STM8S_NUCLEO_207K8)
 #define LED_GPIO_PORT  (GPIOC)
 #define LED_GPIO_PINS  (GPIO_PIN_5)
 #elif defined(STM8S103)
-/* for STM8S103F3 breakout board. building with GPIOG would result in failure (chip 
+/* for STM8S103F3 breakout board. building with GPIOG would result in failure (chip
  * does not have that GPIO peripheral) */
 #define LED_GPIO_PORT  (GPIOB)
-#define LED_GPIO_PINS  (GPIO_PIN_5)	
-#else 
-#define LED_GPIO_PORT  (GPIOG)
-#define LED_GPIO_PINS  (GPIO_PIN_3 | GPIO_PIN_2 | GPIO_PIN_1 | GPIO_PIN_0)
+#define LED_GPIO_PINS  (GPIO_PIN_5)
+#else
+#define LED_GPIO_PORT  (GPIOC)
+#define LED_GPIO_PINS  (GPIO_PIN_3 | GPIO_PIN_2)
 #endif
 
 /* Private macro -------------------------------------------------------------*/
@@ -73,11 +48,9 @@ void main(void)
 
   while (1)
   {
-    /* Toggles LEDs */
     GPIO_WriteReverse(LED_GPIO_PORT, (GPIO_Pin_TypeDef)LED_GPIO_PINS);
     Delay(0xFFFF);
   }
-
 }
 
 /**
@@ -104,7 +77,7 @@ void Delay(uint16_t nCount)
   * @retval None
   */
 void assert_failed(uint8_t* file, uint32_t line)
-{ 
+{
   /* User can add his own implementation to report the file name and line number,
      ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
 
@@ -120,4 +93,4 @@ void assert_failed(uint8_t* file, uint32_t line)
   */
 
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+/*---------------------------(C) COPYRIGHT 2021 OS-Q -------------------------*/
