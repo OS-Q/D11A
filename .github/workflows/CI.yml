@@ -21,6 +21,7 @@ jobs:
       uses: actions/checkout@v2
       with:
         submodules: "recursive"
+        fetch-depth: 1
 
     - name: cppcheck
       uses: Qful/check-action@master
@@ -52,6 +53,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        # board:
+        #   - "uno"
+        #   - "yunmini"
+        #   - "adafruit32u4"
+        #   - "megaatmega2560"
         example:
           - "native-blink"
           - "spl-blink"
@@ -62,9 +68,9 @@ jobs:
           - "arduino-internal-lib"
           - "arduino-ping-hc04"
         package: ["pio","qio"]
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        # os: [ubuntu-latest, windows-latest, macos-latest]
 
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
         with:
@@ -91,3 +97,4 @@ jobs:
       - name: Build examples
         run: |
           pio run -d ${{ matrix.example }}
+          # pio ci --board=${{ matrix.board }} libraries/${{ matrix.example }}/examples/test/test.ino
