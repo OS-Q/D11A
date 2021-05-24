@@ -1,0 +1,37 @@
+kind: pipeline
+name: OSQ
+
+steps:
+- name: QIO
+  image: python:3
+  commands:
+  - apt update
+  - apt install -y git
+  - git submodule update --init --recursive
+  - pip install -U https://github.com/OS-Q/M03/releases/latest/download/qio.zip
+  - qio platform install https://github.com/OS-Q/P131/archive/master.zip
+  - pio run -d  native-blink
+  - pio run -d  spl-blink
+  - pio run -d  spl-flash
+  - pio run -d  spl-uart-loopback
+  - pio run -d  spl-uart-simple-printf
+  - pio run -d  arduino-fade-all-pins
+  - pio run -d  arduino-internal-lib
+  - pio run -d  arduino-ping-hc04
+
+- name: PIO
+  image: python:3
+  commands:
+  - apt update
+  - apt install -y git
+  - git submodule update --init --recursive
+  - pip install -U https://github.com/platformio/platformio/archive/develop.zip
+  - pio platform install https://github.com/OS-Q/P131/archive/master.zip
+  - pio run -d  native-blink
+  - pio run -d  spl-blink
+  - pio run -d  spl-flash
+  - pio run -d  spl-uart-loopback
+  - pio run -d  spl-uart-simple-printf
+  - pio run -d  arduino-fade-all-pins
+  - pio run -d  arduino-internal-lib
+  - pio run -d  arduino-ping-hc04
