@@ -1,9 +1,9 @@
 {
-    "name": "STM8_headers",
-    "version": "0.0.1",
+    "name": "F13",
+    "version": "1.0.0",
     "repository": {
         "type": "git",
-        "url": "https://github.com/gicking/STM8_headers.git"
+        "url": "https://github.com/OS-Q/F13.git"
     },
     "authors": {
         "name": "Georg Icking-Konert",
@@ -11,7 +11,7 @@
         "url": "https://github.com/gicking"
     },
     "license": "MIT",
-    "platforms": "ststm8",
+    "platforms": "F13",
     "frameworks": "*",
     "build": {
         "flags": [
